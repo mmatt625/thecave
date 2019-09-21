@@ -1,10 +1,9 @@
 # The Cave Bot 
-[![Discord Bots](https://discordbots.org/api/widget/status/481943060146683905.svg?noavatar=true)](https://discordbots.org/bot/481943060146683905)
-[![Discord Bots](https://discordbots.org/api/widget/servers/481943060146683905.svg?noavatar=true)](https://discordbots.org/bot/481943060146683905)
-[![Discord Bots](https://discordbots.org/api/widget/upvotes/481943060146683905.svg?noavatar=true)](https://discordbots.org/bot/481943060146683905)
-[![Discord Bots](https://discordbots.org/api/widget/lib/481943060146683905.svg?noavatar=true)](https://discordbots.org/bot/481943060146683905)
-[![Discord Bots](https://discordbots.org/api/widget/owner/481943060146683905.svg?noavatar=true)](https://discordbots.org/bot/481943060146683905)
-^these are broken
+[![Discord Bots](https://discordbots.org/api/widget/status/624829444963696660.svg?noavatar=true)](https://discordbots.org/bot/624829444963696660)
+[![Discord Bots](https://discordbots.org/api/widget/servers/624829444963696660.svg?noavatar=true)](https://discordbots.org/bot/624829444963696660)
+[![Discord Bots](https://discordbots.org/api/widget/upvotes/624829444963696660.svg?noavatar=true)](https://discordbots.org/bot/624829444963696660)
+[![Discord Bots](https://discordbots.org/api/widget/lib/624829444963696660.svg?noavatar=true)](https://discordbots.org/bot/624829444963696660)
+[![Discord Bots](https://discordbots.org/api/widget/owner/624829444963696660.svg?noavatar=true)](https://discordbots.org/bot/624829444963696660)
 [![GitHub issues](https://img.shields.io/github/issues/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/issues)
 [![GitHub forks](https://img.shields.io/github/forks/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/network)
 [![GitHub stars](https://img.shields.io/github/stars/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/stargazers)
