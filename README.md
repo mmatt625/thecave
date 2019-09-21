@@ -12,9 +12,8 @@
 # About
 The Cave Bot is a new Discord bot coded by mmatt#0001 made for The Cave Discord Server.
 
-## Can I use Semue right now?
-No, it is private for now, but in the mean time you can see it in action over at the cave. https://discord.me/thecavecord
-
+## Can I use The Cave right now?
+Yes, but I must warn you there are not many features, and is in mid development.
 
 ## Issues or want to improve some code?
 Submit an [Issue](https://github.com/mmatt625/thecave/issues) or a [Pull request](https://github.com/mmatt625/thecave/pulls).
