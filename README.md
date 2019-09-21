@@ -8,6 +8,8 @@
 [![GitHub forks](https://img.shields.io/github/forks/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/network)
 [![GitHub stars](https://img.shields.io/github/stars/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/blob/master/LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/the-cave-bot/badge/?version=latest)](https://the-cave-bot.readthedocs.io/en/latest/?badge=latest)
+
 # About
 The Cave Bot is a new Discord bot coded by mmatt#0001 made for The Cave Discord Server.
 
