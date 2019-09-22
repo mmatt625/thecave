@@ -58,10 +58,10 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)} ms :ping_pong:')
 
-#@client.command(aliases=['8ball', 'ahaha'])
-#async def _8ball(ctx, *, question):
-#    responses = ['It is certain.',   'It is decidedly so.', 'WIthout a doubt', 'Yes - definitely.', 'You may rely on it.', 'Yes sir!', 'Most likely.', 'Good', 'Yes.', 'North = Yes, and you are going north.', 'Try again...', 'Not telling you, yet', 'Can not say yes, can not say no.', 'Ask again', "Don't count on it", 'No', 'According to my sources, no', 'Nope', 'Never']
-#    await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
+@client.command(aliases=['8ball', 'ahaha'])
+async def _8ball(ctx, *, question):
+    responses = ['It is certain.',   'It is decidedly so.', 'WIthout a doubt', 'Yes - definitely.', 'You may rely on it.', 'Yes sir!', 'Most likely.', 'Good', 'Yes.', 'North = Yes, and you are going north.', 'Try again...', 'Not telling you, yet', 'Can not say yes, can not say no.', 'Ask again', "Don't count on it", 'No', 'According to my sources, no', 'Nope', 'Never']
+    await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -119,5 +119,9 @@ async def prefix(ctx, prefix):
 @client.command()
 async def invite(ctx):
     await ctx.send('You can invite The Cave to your server by going to\nhttps://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0')
+
+@client.command()
+async def baf(ctx):
+    await ctx.send('https://gyazo.com/04d0cbc179d87db2234286dfb29c77b7')
 
 client.run('process.env.discord_token')
