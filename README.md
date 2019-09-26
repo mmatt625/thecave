@@ -9,6 +9,13 @@
 [![GitHub stars](https://img.shields.io/github/stars/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/blob/master/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/the-cave-bot/badge/?version=latest)](https://the-cave-bot.readthedocs.io/en/latest/?badge=latest)
+<a href="https://discordbotlist.com/bots/624829444963696660">
+    <img 
+        width="380" 
+        height="140" 
+        src="https://discordbotlist.com/bots/624829444963696660/widget" 
+        alt="The Cave stats on Discord Bot List">
+</a>
 
 # About
 The Cave Bot is a new Discord bot coded by mmatt#0001 made for The Cave Discord Server.
