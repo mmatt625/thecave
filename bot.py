@@ -196,3 +196,4 @@ async def on_raw_reaction_remove(payload):
                 print('Member not found')
         else:
             print('Role not found')
+client.run('process.env.discord_token')
