@@ -7,6 +7,8 @@ import dbl
 
 from discord.ext import commands
 
+#just testing something
+
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
