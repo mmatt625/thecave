@@ -7,6 +7,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/network)
 [![GitHub stars](https://img.shields.io/github/stars/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/stargazers)
 [![GitHub license](https://img.shields.io/github/license/mmatt625/thecave.svg)](https://github.com/mmatt625/thecave/blob/master/LICENSE)
+[![The Cave Discord](https://discordapp.com/api/guilds/560262402659057681/widget.png?style=shield)](https://discord.gg/8xMWb7W)
 
 # About
 The Cave Bot is a new Discord bot coded by mmatt#0001 made for The Cave Discord Server.
