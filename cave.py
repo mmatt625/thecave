@@ -121,10 +121,15 @@ async def changeprefix(ctx, prefix):
 @client.command()
 async def invite(ctx):
     await ctx.send('You can invite The Cave to your server by going to\nhttps://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0')
+    embed = discord.Embed(title="Invite", description="Invite The Cave to your server!", colour=discord.Color.blurple(), url="https://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0")
+
+    embed.add_field(name="Click here to invite The Cave to your Discord Server.", value="https://discordapp.com/oauth2/authorize?client_id=624829444963696660&scope=bot&permissions=0")
+
+    await ctx.send(embed=embed)
 
 @client.command(hidden=True)
 async def baf(ctx):
-    await ctx.send('https://gyazo.com/04d0cbc179d87db2234286dfb29c77b7')
+    await ctx.send('https://i.gyazo.com/04d0cbc179d87db2234286dfb29c77b7.png')
 
 @client.command(hidden=True)
 async def L(ctx):
@@ -132,11 +137,20 @@ async def L(ctx):
 
 @client.command(aliases=['vc', 'screenshare', 'ss'])
 async def vcshare(ctx):
-    await ctx.send(f'Click this link to screenshare in your Discord VC [Must already be in a VC to work]\n<https://discordapp.com/channels/{ctx.guild.id}/{ctx.author.voice.channel.id}>')
+    embed = discord.Embed(title="Screenshare", description="Cilck this link to screenshare", colour=discord.Color.blurple(), url=f"https://discordapp.com/channels/{ctx.guild.id}/{ctx.author.voice.channel.id}")
+
+    embed.add_field(name="Screenshare here", value=f"https://discordapp.com/channels/{ctx.guild.id}/{ctx.author.voice.channel.id}")
+
+    await ctx.send(embed=embed)
 
 @client.command()
 async def support(ctx):
-    await ctx.send('Contact <@308000668181069824> or join our Discord Server! https://discord.gg/8xMWb7W')
+    embed = discord.Embed(title="Support", description="Discord Support Server", colour=discord.Color.blurple(), url="https://discord.gg/8xMWb7W")
+
+    embed.add_field(name="Contact the Dev", value="<@308000668181069824>")
+    embed.add_field(name="Join the Discord", value="https://discord.gg/8xMWb7W")
+
+    await ctx.send(embed=embed)
 
 @client.command(hidden=True, aliases=['ce3', 'retard', 'poggers'])
 async def clearesteagle3(ctx):
@@ -146,11 +160,61 @@ async def clearesteagle3(ctx):
 async def nitroboost(ctx):
     await ctx.send('Boosting gives you guys:\n- Special Pink Role\n- More emojis for the entire server\n- Higher bitrate for the entire server\n- Special access to higher level channels\n- Special access to a secret category with only the boosters [The Booster Club]\n- Choose any of the role colors\n- Embed Access :globe_with_meridians: \n- File Upload Access :file_folder: \n- Special Madge on the Member List\n - And More!!!\nSo you should join the Booster Club, by boosting our server. You help out the entire server and you get some awesome perks!\n https://tenor.com/view/discord-nitro-server-boost-boost-nitro-boost-gif-14289229')
 
-@client.command(aliases=['hk', 'freehonkkong', 'freehk'])
+@client.command(hidden=True, aliases=['hk', 'freehonkkong', 'freehk'])
 async def hongkong(ctx):
     await ctx.send(':flag_hk: free hong kong https://www.reddit.com/r/HongKong/comments/dpn9oy/man_gets_pepper_sprayed_in_the_face_for_asking_a/')
 
-#Role reaction
+@client.command()
+async def embedtemplate(ctx):
+    embed = discord.Embed(title="Title", description="Description", colour=discord.Color.blurple(), url="https://mmatt.pw")
+
+    embed.add_field(name="the title", value="the description")
+
+    await ctx.send(embed=embed)
+
+
+
+
+@client.command(hidden=True)
+async def fortnite(ctx):
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+    await ctx.send('fortnite')
+
+#Role reaction for booster club
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
@@ -196,4 +260,50 @@ async def on_raw_reaction_remove(payload):
                 print('Member not found')
         else:
             print('Role not found')
-client.run('process.env.discord_token')
+
+#Role select for the general public
+@client.event
+async def on_raw_reaction_add(payload):
+    message_id = payload.message_id
+    if message_id == 645399829039808514:
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+
+        if payload.emoji.name == 'twitchnotifications':
+            role = discord.utils.get(guild.roles, name='twitchnotifications')
+        elif payload.emoji.name == 'red':
+            role = discord.utils.get(guild.roles, name='red')
+        else:
+            role = discord.utils.get(guild.roles, name=payload.emoji.name)
+
+        if role is not None:
+            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+            if member is not None:
+                await member.add_roles(role)
+                print("Done")
+            else:
+                print('Member not found')
+        else:
+            print('Role not found')
+
+@client.event
+async def on_raw_reaction_remove(payload):
+    message_id = payload.message_id
+    if message_id == 645399829039808514:
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+
+        if payload.emoji.name == 'twitchnotifications':
+            role = discord.utils.get(guild.roles, name='twitchnotifications')
+        else:
+            role = discord.utils.get(guild.roles, name=payload.emoji.name)
+
+        if role is not None:
+            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+            if member is not None:
+                await member.remove_roles(role)
+                print("Done")
+            else:
+                print('Member not found')
+        else:
+            print('Role not found')
