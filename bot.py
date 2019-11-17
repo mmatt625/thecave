@@ -91,24 +91,46 @@ async def ping(ctx):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
     await ctx.send(f'Cleared {amount} messages.')
+    embed = discord.Embed(title="Cleared Messages", description="Purge has been executed.", colour=discord.Color.blue())
+
+    embed.add_field(name="Cleared", value=f"{amount} messages")
+
+    await ctx.send(embed=embed)
+
 
 @client.command(aliases=['sp', 'sc', 'softpurge'])
 @commands.has_permissions(manage_messages=True)
 async def softclear(ctx,amount=2):
     await ctx.channel.purge(limit=amount)
-    await ctx.send(f'Cleared {amount} messages.')
+    embed = discord.Embed(title="Cleared Messages", description="Soft purge has been executed.", colour=discord.Color.blue())
+
+    embed.add_field(name="Cleared", value=f"{amount} messages")
+
+    await ctx.send(embed=embed)
 
 @client.command(aliases=['k'])
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
-    await ctx.send(f'Kicked {member}\nReason - {reason}')
+    embed = discord.Embed(title="User Kicked", description=f"{user.name} has been kicked from the server.", colour=discord.Color.blue())
+
+    embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
+    embed.add_field(name="Reason", value=f"{reason}")
+
+    await ctx.send(embed=embed)
 
 @client.command(aliases=['b'])
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
-    await ctx.send(f'Banned {member}\nReason - {reason}')
+    embed = discord.Embed(title="User Banned", description=f"{user.name} has been banned from the server.", colour=discord.Color.blue())
+
+    embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
+    embed.add_field(name="Reason", value=f"{reason}")
+
+    await ctx.send(embed=embed)
+
+
 
 @client.command()
 @commands.has_permissions(ban_members=True)
@@ -121,16 +143,33 @@ async def unban(ctx, *, member):
 
         if (user.name, user.discriminator) == (member_name, member_discriminator):
             await ctx.guild.unban(user)
-            await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
+            embed = discord.Embed(title="User Unbanned", description=f"{user.name} has been unbanned from the server.", colour=discord.Color.blue())
+
+            embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
+
+            await ctx.send(embed=embed)
+
+
             return
 
 @client.command()
-async def bump(ctx):
-    await ctx.send('Bump The Cave on:\nDiscordBots.org - <https://discordbots.org/bot/624829444963696660>\nDiscordBotList.com - <https://discordbotlist.com/bots/624829444963696660/upvote>')
+async def vote(ctx):
+    embed = discord.Embed(title="Vote", description="Vote on The Cave bot on...", colour=discord.Color.blue())
+
+    embed.add_field(name="DiscordBots.org", value="https://discordbots.org/bot/624829444963696660")
+    embed.add_field(name="DiscordBotList.com", value="https://discordbotlist.com/bots/624829444963696660/upvote")
+
+    await ctx.send(embed=embed)
+
 
 @client.command(aliases=['developer', 'devteam'])
 async def dev(ctx):
-    await ctx.send('<@308000668181069824> developed me!')
+    embed = discord.Embed(title="mmatt developed me!", colour=discord.Color.blue())
+
+    embed.add_field(name="Dev's Discord", value="<@308000668181069824>")
+
+    await ctx.send(embed=embed)
+
 
 @client.command(aliases=['prefix'])
 @commands.has_permissions(administrator=True)
@@ -188,14 +227,24 @@ async def clearesteagle3(ctx):
 
 @client.command(hidden=True, aliases=['boost'])
 async def nitroboost(ctx):
-    await ctx.send('Boosting gives you guys:\n- Special Pink Role\n- More emojis for the entire server\n- Higher bitrate for the entire server\n- Special access to higher level channels\n- Special access to a secret category with only the boosters [The Booster Club]\n- Choose any of the role colors\n- Embed Access :globe_with_meridians: \n- File Upload Access :file_folder: \n- Special Madge on the Member List\n - And More!!!\nSo you should join the Booster Club, by boosting our server. You help out the entire server and you get some awesome perks!\n https://tenor.com/view/discord-nitro-server-boost-boost-nitro-boost-gif-14289229')
+    embed = discord.Embed(title="Nitro Boosting", description="Using your Nitro Boost on a server gives the server...", colour=discord.Color.blue())
+
+    embed.add_field(name="Pink Role", value="Special Pink Role only given to Nitro Boosters, that can be given special permissions.")
+    embed.add_field(name="More Emojis", value="More emojis for the entire server to use. (up to a total of 250 emojis!)")
+    embed.add_field(name="Higher Bitrate", value="Higher quality voice channels for the entire server.")
+    embed.add_field(name="Special Badge", value="You get a special badge on your Discord profile as well as on the member list.")
+    embed.add_field(name="The rest is up to the server.", value="The server can give you secret channels and more perks. For example, The Cave gives boosters more role colors, file upload access, file embed access, and more.")
+    embed.set_thumbnail(url="https://tenor.com/view/discord-nitro-server-boost-boost-nitro-boost-gif-14289229")
+
+    await ctx.send(embed=embed)
+
 
 @client.command(hidden=True, aliases=['hk', 'freehonkkong', 'freehk'])
 async def hongkong(ctx):
     await ctx.send(':flag_hk: free hong kong https://www.reddit.com/r/HongKong/comments/dpn9oy/man_gets_pepper_sprayed_in_the_face_for_asking_a/')
 
-@client.command()
-async def embedtemplate(ctx):
+@client.command(hidden=True)
+async def embedbuilder(ctx):
     embed = discord.Embed(title="Title", description="Description", colour=discord.Color.blue(), url="https://mmatt.pw")
 
     embed.add_field(name="the title", value="the description")
@@ -203,58 +252,28 @@ async def embedtemplate(ctx):
     await ctx.send(embed=embed)
 
 
-
-
-@client.command(hidden=True)
-async def fortnite(ctx):
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-    await ctx.send('fortnite')
-
-@client.command()
+@client.command(aliases=['commands'])
 async def help(ctx):
     embed = discord.Embed(title="Command Help", description="All of The Cave's commands.", colour=discord.Color.blue())
 
-    embed.add_field(name="Ban", value="Usage - tc/ban [@username] [reason]. Requires the Ban Member Permission. Bans the member specified, permanently. For more information, do tc/help ban.")
-    embed.add_field(name="Join the Discord", value="https://discord.gg/8xMWb7W")
+    embed.add_field(name="Ban", value="Usage - tc/ban [or tc/b] [@username] [reason]. Bans the member specified, permanently. Requires the Ban Member Permission.")
+    embed.add_field(name="ChangePrefix", value="Usage - tc/prefix [or tc/changeprefix] [prefix]. Changes the prefix for this server. Requires the Administrator Permission.")
+    embed.add_field(name="Clear", value="Usage - tc/clear [or tc/p,c, or purge] [amount]. Clears amount of messages specified. [Make sure you add 1 to your ammount.] [Default amount = 5] Requires the Manage Messages Permission.")
+    embed.add_field(name="Dev", value="Usage - tc/dev [or tc/developer, or devteam]. Shows the development team of The Cave bot.")
+    embed.add_field(name="Help", value="Usage - tc/help [or tc/commands]. Shows this message")
+    embed.add_field(name="Invite", value="Usage - tc/invite Gives an invite link to the bot.")
+    embed.add_field(name="Kick", value="Usage - tc/kick [or tc/k] [member] [reason]. Kicks the member specified. Requires the Kick Members Permission.")
+    embed.add_field(name="Ping", value="Usage - tc/ping. Shows the bot's latency between the Discord servers.")
+    embed.add_field(name="SoftClear", value="Usage - tc/softclear [or tc/sp, sc, or softpurge] Same thing as tc/clear, except the default value is 2.")
+    embed.add_field(name="Support", value="Usage - tc/support. Gives support server + dev's username.")
+    embed.add_field(name="Unban", value="Usage - tc/unban [Username]. Unbans a specific user. Requires Ban Members Permission")
+    embed.add_field(name="VCShare", value="Usage - tc/vcshare. Gives link to screenshare in a voice channel. Must be in a voice channel to work. [FAN FAVORITE]")
+    embed.add_field(name="Join the Support Discord", value="https://discord.gg/8xMWb7W")
 
     await ctx.send(embed=embed)
 
 
-#Role reaction for booster club
+#Role reaction for booster club [The Cave]
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
@@ -301,7 +320,7 @@ async def on_raw_reaction_remove(payload):
         else:
             print('Role not found')
 
-#Role select for the general public
+#Role select for the general public [The Cave]
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
