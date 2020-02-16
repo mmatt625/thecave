@@ -7,31 +7,16 @@ import dbl
 
 from discord.ext import commands
 
-#just testing something
 
-def get_prefix(client, message):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
+client = commands.Bot(command_prefix = 'tc/')
 
-    return prefixes[str(message.guild.id)]
+client.remove_command("help")
 
-client = commands.Bot(command_prefix = get_prefix)
-TOKEN = open("token.txt", "r").read()
-
-client.remove_command('help')
 
 @client.event
 async def on_ready():
-    client.loop.create_task(status_task())
+    await client.change_presence(status = discord.Status.online, activity=discord.Game('tc/help for commands.'))
     print('The Cave is online!')
-
-@client.event
-async def status_task():
-    while True:
-        await client.change_presence(status = discord.Status.online, activity=discord.Game('tc/help for commands.'))
-        await asyncio.sleep(10)
-        await client.change_presence(status= discord.Status.online, activity=discord.Game("Reinvite the bot if commands don't work."))
-        await asyncio.sleep(10)
 
 @client.event
 async def on_member_join(member):
@@ -76,7 +61,6 @@ async def on_guild_remove(guild):
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)} ms :ping_pong:')
     embed = discord.Embed(title="Pong!", description=":ping_pong:", colour=discord.Color.blue())
 
     embed.add_field(name="The latency for The Cave is...", value=f"{round(client.latency * 1000)} ms")
@@ -89,11 +73,11 @@ async def ping(ctx):
 @client.command(aliases=['p', 'c', 'purge'])
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, amount=5):
-    await ctx.channel.purge(limit=amount)
-    await ctx.send(f'Cleared {amount} messages.')
     embed = discord.Embed(title="Cleared Messages", description="Purge has been executed.", colour=discord.Color.blue())
 
     embed.add_field(name="Cleared", value=f"{amount} messages")
+
+    await ctx.channel.purge(limit=amount)
 
     await ctx.send(embed=embed)
 
@@ -110,8 +94,8 @@ async def softclear(ctx,amount=2):
 
 @client.command(aliases=['k'])
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, member : discord.Member, *, reason=None):
-    await member.kick(reason=reason)
+async def kick(ctx, user : discord.Member, *, reason=None):
+    await user.kick(reason=reason)
     embed = discord.Embed(title="User Kicked", description=f"{user.name} has been kicked from the server.", colour=discord.Color.blue())
 
     embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
@@ -121,8 +105,8 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 
 @client.command(aliases=['b'])
 @commands.has_permissions(ban_members=True)
-async def ban(ctx, member : discord.Member, *, reason=None):
-    await member.ban(reason=reason)
+async def ban(ctx, user : discord.Member, *, reason=None):
+    await user.ban(reason=reason)
     embed = discord.Embed(title="User Banned", description=f"{user.name} has been banned from the server.", colour=discord.Color.blue())
 
     embed.add_field(name="User", value=f"@{user.name}#{user.discriminator}")
@@ -171,22 +155,7 @@ async def dev(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command(aliases=['prefix'])
-@commands.has_permissions(administrator=True)
-async def changeprefix(ctx, prefix):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
 
-    prefixes[str(ctx.guild.id)] = prefix
-
-    with open('prefixes.json', 'w') as f:
-        json.dump(prefixes, f, indent=4)
-
-    embed = discord.Embed(title="Prefix Changed", description="The prefix has been changed by an Admin.", colour=discord.Color.blue())
-
-    embed.add_field(name="The prefix for this server has been changed by an Admin to", value=f"{prefix}")
-
-    await ctx.send(embed=embed)
 
 @client.command()
 async def invite(ctx):
@@ -223,7 +192,11 @@ async def support(ctx):
 
 @client.command(hidden=True, aliases=['ce3', 'retard', 'poggers'])
 async def clearesteagle3(ctx):
-    await ctx.send('ClearestEagle3 be like, im retard')
+    embed = discord.Embed(title="ClearestEagle3 be like", colour=discord.Color.blue())
+
+    embed.add_field(name="Be like", value="retard")
+
+    await ctx.send(embed=embed)
 
 @client.command(hidden=True, aliases=['boost'])
 async def nitroboost(ctx):
@@ -252,12 +225,12 @@ async def embedbuilder(ctx):
     await ctx.send(embed=embed)
 
 
-@client.command(aliases=['commands'])
-async def help(ctx):
+@client.command(aliases=['helpme', 'help'])
+async def commands(ctx):
     embed = discord.Embed(title="Command Help", description="All of The Cave's commands.", colour=discord.Color.blue())
 
     embed.add_field(name="Ban", value="Usage - tc/ban [or tc/b] [@username] [reason]. Bans the member specified, permanently. Requires the Ban Member Permission.")
-    embed.add_field(name="ChangePrefix", value="Usage - tc/prefix [or tc/changeprefix] [prefix]. Changes the prefix for this server. Requires the Administrator Permission.")
+    embed.add_field(name="ChangePrefix", value="[UNDER CONSTRUCTION] Usage - tc/prefix [or tc/changeprefix] [prefix]. Changes the prefix for this server. Requires the Administrator Permission.")
     embed.add_field(name="Clear", value="Usage - tc/clear [or tc/p,c, or purge] [amount]. Clears amount of messages specified. [Make sure you add 1 to your ammount.] [Default amount = 5] Requires the Manage Messages Permission.")
     embed.add_field(name="Dev", value="Usage - tc/dev [or tc/developer, or devteam]. Shows the development team of The Cave bot.")
     embed.add_field(name="Help", value="Usage - tc/help [or tc/commands]. Shows this message")
@@ -273,52 +246,31 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 
-#Role reaction for booster club [The Cave]
-@client.event
-async def on_raw_reaction_add(payload):
-    message_id = payload.message_id
-    if message_id == 625430288658333729:
-        guild_id = payload.guild_id
-        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+@client.command(hidden=True)
+async def xander(ctx):
+    embed = discord.Embed(title="xander be like", colour=discord.Color.green())
 
-        if payload.emoji.name == 'yellow':
-            role = discord.utils.get(guild.roles, name='yellow')
-        elif payload.emoji.name == 'red':
-            role = discord.utils.get(guild.roles, name='red')
-        else:
-            role = discord.utils.get(guild.roles, name=payload.emoji.name)
+    embed.add_field(name="Xander", value="be like Fortnite")
 
-        if role is not None:
-            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
-            if member is not None:
-                await member.add_roles(role)
-                print("Done")
-            else:
-                print('Member not found')
-        else:
-            print('Role not found')
+    await ctx.send(embed=embed)
 
-@client.event
-async def on_raw_reaction_remove(payload):
-    message_id = payload.message_id
-    if message_id == 625430288658333729:
-        guild_id = payload.guild_id
-        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+@client.command(hidden=True)
+async def logan(ctx):
+    embed = discord.Embed(title="Logan be like", colour=discord.Color.blue)
 
-        if payload.emoji.name == 'yellow':
-            role = discord.utils.get(guild.roles, name='yellow')
-        else:
-            role = discord.utils.get(guild.roles, name=payload.emoji.name)
+    embed.add_field(name="logan", value="be like retard")
 
-        if role is not None:
-            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
-            if member is not None:
-                await member.remove_roles(role)
-                print("Done")
-            else:
-                print('Member not found')
-        else:
-            print('Role not found')
+    await ctx.send(embed=embed)
+
+
+@client.command(hidden=True)
+async def gracie(ctx):
+    embed = discord.Embed(title='gracie be', description='like', colour=discord.Color.blue)
+
+    embed.add_field(name='gracie', value='i dont know')
+
+    await ctx.send(embed=embed)
+zzz
 
 #Role select for the general public [The Cave]
 @client.event
@@ -367,30 +319,4 @@ async def on_raw_reaction_remove(payload):
         else:
             print('Role not found')
 
-#Top.gg vote sys
-class DiscordBotsOrgAPI(commands.Cog):
-    """Handles interactions with the top.gg API"""
-
-    def __init__(self, bot):
-        self.bot = bot
-        self.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDgyOTQ0NDk2MzY5NjY2MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTY5NDUwNzQzfQ.znNOAGSkl0dyExGwQpBXXle3bV7LO3w53-bNMoFnPZA' # set this to your DBL token
-        self.dblpy = dbl.Client(self.bot, self.token)
-        self.updating = self.bot.loop.create_task(self.update_stats())
-
-    async def update_stats(self):
-        """This function runs every 30 minutes to automatically update your server count"""
-        while not self.bot.is_closed():
-            logger.info('Attempting to post server count')
-            try:
-                await self.dblpy.post_guild_count()
-                logger.info('Posted server count ({})'.format(self.dblpy.guild_count()))
-            except Exception as e:
-                logger.exception('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
-            await asyncio.sleep(1800)
-
-def setup(bot):
-    global logger
-    logger = logging.getLogger('bot')
-    bot.add_cog(DiscordBotsOrgAPI(bot))
-
-client.run('TOKEN')
+client.run("TOKEN")
